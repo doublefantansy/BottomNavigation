@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+        <hzkj.cc.mybottomnavigation.MyBottomNavigation
+            android:id="@+id/a"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_alignParentBottom="true" />
+    <!--<hzkj.cc.mybottomnavigation.BottomNavigation-->
+    <!--android:visibility="gone"-->
+    <!--android:id="@+id/bottomNavigation"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+    <!--<TextView-->
+    <!--android:layout_above="@id/bottomNavigation"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:background="@color/colorAccent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:text="ccnb"-->
+    <!--android:textSize="24sp" />-->
+    <!--<hzkj.cc.mybottomnavigation.MyBottomNavigation-->
+    <!--android:id="@+id/bottomNavigation"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentBottom="true"/>-->
+    <!--</RelativeLayout>-->
+    <!--</hzkj.cc.mybottomnavigation.BottomNavigation>-->
+</RelativeLayout>
