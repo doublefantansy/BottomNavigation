@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?><!--Android API21及以上引入了控件点击的水波纹效果-->
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="@color/gray">
+    android:color="@color/bottomNavigation_gray">
     <item
         android:id="@android:id/mask"
         android:drawable="@drawable/rippershape"></item>
     <item>
         <shape>
-            <solid android:color="@color/white"></solid>
+            <solid android:color="@color/bottomNavigation_white"></solid>
         </shape>
     </item>
 </ripple>

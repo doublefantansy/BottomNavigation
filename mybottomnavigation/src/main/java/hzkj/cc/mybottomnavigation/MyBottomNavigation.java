@@ -1,6 +1,7 @@
 package hzkj.cc.mybottomnavigation;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -37,6 +38,10 @@ public class MyBottomNavigation extends LinearLayout {
 
     public MyBottomNavigation(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.cc);
+        unSelectedtextColor = array.getInt(R.styleable.cc_unSelcetedTextColor, getResources().getColor(R.color.bottomNavigation_gray));
+        selectedTextColor = array.getInt(R.styleable.cc_selcetedTextColor, getResources().getColor(R.color.bottomNavigation_myBlue));
+        array.recycle();
     }
 
     public void initBottomChildren(FragmentManager manager, List<BottomChild> bottomChildren, int defalutIndex) {
@@ -48,15 +53,7 @@ public class MyBottomNavigation extends LinearLayout {
         initView();
         initListenner();
     }
-
-    public void setUnselectedTextColor(int unSelectedtextColor) {
-        this.unSelectedtextColor = unSelectedtextColor;
-    }
-
-    public void setSelectedTextColor(int selectedTextColor) {
-        this.selectedTextColor = selectedTextColor;
-    }
-
+    
     public void changeUi(BottomChild bottomChild) {
         bottomChild.getTextView()
                 .setTextColor(bottomChild.isSelected() ? selectedTextColor : unSelectedtextColor);
@@ -69,8 +66,8 @@ public class MyBottomNavigation extends LinearLayout {
     }
 
     private void initView() {
-        selectedTextColor = getResources().getColor(R.color.myBlue);
-        unSelectedtextColor = getResources().getColor(R.color.gray);
+//        selectedTextColor = getResources().getColor(R.color.bottomNavigation_myBlue);
+//        unSelectedtextColor = getResources().getColor(R.color.bottomNavigation_gray);
         this.setOrientation(VERTICAL);
         LinearLayout fragmentLayout = new LinearLayout(getContext());
         fragmentLayout.setId(id);
@@ -89,6 +86,7 @@ public class MyBottomNavigation extends LinearLayout {
             TextView textView = view.findViewById(R.id.text);
             ImageView imageView = view.findViewById(R.id.image);
             textView.setText(bottomChild.getName());
+            textView.setTextColor(unSelectedtextColor);
             imageView.setImageDrawable(bottomChild.getSrc());
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT);
             layoutParams.weight = 1;

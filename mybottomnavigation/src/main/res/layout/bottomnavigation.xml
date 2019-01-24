@@ -4,27 +4,28 @@
     android:layout_height="match_parent"
     android:background="@drawable/ripper"
     android:orientation="vertical">
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_alignParentTop="true"
-        android:background="@color/lightGray"/>
+        android:background="@color/bottomNavigation_lightGray" />
+
     <ImageView
         android:id="@+id/image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_above="@id/text"
-        android:layout_marginBottom="3dp"
-        android:layout_marginTop="10dp" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="3dp" />
 
     <TextView
         android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:textColor="@color/colorPrimary"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="3dp"
         android:textSize="12sp" />
 </RelativeLayout>
