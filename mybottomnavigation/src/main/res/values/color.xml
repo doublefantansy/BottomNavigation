@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#1DA7ED</color>
-    <color name="white">#FFFFFF</color>
-    <color name="gray">#858585</color>EDEDED
-    <color name="myBlue">#1DA7ED</color>
-    <color name="lightGray">#E3E3E3</color>
+    <color name="bottomNavigation_white">#FFFFFF</color>
+    <color name="bottomNavigation_gray">#858585</color>
+    <color name="bottomNavigation_myBlue">#1DA7ED</color>
+    <color name="bottomNavigation_lightGray">#E3E3E3</color>
 </resources>
