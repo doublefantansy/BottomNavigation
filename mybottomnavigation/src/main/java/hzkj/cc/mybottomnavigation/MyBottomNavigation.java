@@ -1,12 +1,12 @@
 package hzkj.cc.mybottomnavigation;
 
 import android.content.Context;
-import android.graphics.Canvas;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.util.TypedValue;
-import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -15,12 +15,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.Random;
 
 public class MyBottomNavigation extends LinearLayout {
     List<BottomChild> bottomChildren;
     int unSelectedtextColor;
     int selectedTextColor;
+    FragmentManager manager;
+    int defalutIndex;
+    Fragment currentFragement;
     OnClickBottomChildListener onClickBottomChildListener;
+    private int id = new Random().nextInt(717);
 
     public void setOnClickBottomChildListener(OnClickBottomChildListener onClickBottomChildListener) {
         this.onClickBottomChildListener = onClickBottomChildListener;
@@ -34,11 +39,14 @@ public class MyBottomNavigation extends LinearLayout {
         super(context, attrs);
     }
 
-    public void setBottomChildren(List<BottomChild> bottomChildren, int defalutIndex) {
+    public void initBottomChildren(FragmentManager manager, List<BottomChild> bottomChildren, int defalutIndex) {
+        this.manager = manager;
         this.bottomChildren = bottomChildren;
-        bottomChildren.get(defalutIndex)
+        this.defalutIndex = defalutIndex;
+        bottomChildren.get(this.defalutIndex)
                 .setSelected(true);
-        init();
+        initView();
+        initListenner();
     }
 
     public void setUnselectedTextColor(int unSelectedtextColor) {
@@ -50,71 +58,95 @@ public class MyBottomNavigation extends LinearLayout {
     }
 
     public void changeUi(BottomChild bottomChild) {
-        ((RelativeLayout.LayoutParams) bottomChild.imageView.getLayoutParams()).topMargin = bottomChild.isSelected == true ? Util.dipTopx(getContext(), 5) : Util.dipTopx(getContext(), 8);
-        bottomChild.imageView.getLayoutParams().width = bottomChild.isSelected == true ? Util.dipTopx(getContext(), 36) : Util.dipTopx(getContext(), 24);
-        bottomChild.textView.setTextSize(bottomChild.isSelected == true ? 15 : 12);
-        bottomChild.imageView.setImageDrawable(bottomChild.isSelected == true ? bottomChild.selectedSrc : bottomChild.src);
-        bottomChild.textView.setTextColor(bottomChild.isSelected == true ? selectedTextColor : unSelectedtextColor);
+        bottomChild.getTextView()
+                .setTextColor(bottomChild.isSelected() ? selectedTextColor : unSelectedtextColor);
+        bottomChild.getTextView()
+                .setTextSize(bottomChild.isSelected() ? 15 : 12);
+        ((RelativeLayout.LayoutParams) bottomChild.getImageView()
+                .getLayoutParams()).topMargin = bottomChild.isSelected() ? 5 : 10;
+        bottomChild.getImageView()
+                .setImageDrawable(bottomChild.isSelected() ? bottomChild.getSelectedSrc() : bottomChild.getSrc());
     }
 
-    private void init() {
-        int id = 0;
-        unSelectedtextColor = getResources().getColor(R.color.gray);
+    private void initView() {
         selectedTextColor = getResources().getColor(R.color.myBlue);
-        LinearLayout linearLayout = new LinearLayout(getContext());
-        linearLayout.setBackgroundColor(getResources().getColor(R.color.white));
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-        linearLayout.setLayoutParams(layoutParams);
+        unSelectedtextColor = getResources().getColor(R.color.gray);
+        this.setOrientation(VERTICAL);
+        LinearLayout fragmentLayout = new LinearLayout(getContext());
+        fragmentLayout.setId(id);
+        LinearLayout.LayoutParams fragmentParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        fragmentParams.weight = 1;
+        fragmentLayout.setLayoutParams(fragmentParams);
+        this.addView(fragmentLayout);
+        initFragment();
+        LinearLayout bottomLayout = new LinearLayout(getContext());
+        LinearLayout.LayoutParams bottomParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, Util.dipTopx(getContext(), 55));
+        bottomLayout.setLayoutParams(bottomParams);
+        this.addView(bottomLayout);
         for (BottomChild bottomChild : bottomChildren) {
-            RelativeLayout relativeLayout = new RelativeLayout(getContext());
-            relativeLayout.setBackground(getResources().getDrawable(R.drawable.ripper));
-            LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT);
-            linearLayoutParams.weight = 1;
-            RelativeLayout.LayoutParams imagePaarms = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            imagePaarms.addRule(RelativeLayout.CENTER_HORIZONTAL);
-            imagePaarms.topMargin = Util.dipTopx(getContext(), 8);
-            RelativeLayout.LayoutParams namePaarms = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            namePaarms.addRule(RelativeLayout.CENTER_HORIZONTAL);
-            final ImageView imageView = new ImageView(getContext());
-            imageView.setImageDrawable(bottomChild.src);
-            imageView.setLayoutParams(imagePaarms);
-            imageView.setId(++id);
-            bottomChild.setImageView(imageView);
-            final TextView textView = new TextView(getContext());
-            textView.setText(bottomChild.name);
-            textView.setId(++id);
-            textView.setTextSize(12);
-            textView.setTextColor(unSelectedtextColor);
+            View view = LayoutInflater.from(getContext())
+                    .inflate(R.layout.bottomnavigation, null);
+            TextView textView = view.findViewById(R.id.text);
+            ImageView imageView = view.findViewById(R.id.image);
+            textView.setText(bottomChild.getName());
+            imageView.setImageDrawable(bottomChild.getSrc());
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT);
+            layoutParams.weight = 1;
+            view.setLayoutParams(layoutParams);
+            bottomLayout.addView(view);
             bottomChild.setTextView(textView);
-            namePaarms.topMargin = Util.dipTopx(getContext(), 3);
-            namePaarms.addRule(RelativeLayout.BELOW, imageView.getId());
-            textView.setLayoutParams(namePaarms);
-            relativeLayout.addView(imageView);
-            relativeLayout.addView(textView);
-            relativeLayout.setLayoutParams(linearLayoutParams);
-            bottomChild.setRelativeLayout(relativeLayout);
-            linearLayout.addView(relativeLayout);
+            bottomChild.setImageView(imageView);
+            bottomChild.setView(view);
         }
-        this.addView(linearLayout);
+    }
+
+    private void initFragment() {
+        currentFragement = bottomChildren.get(defalutIndex)
+                .getFragment();
+        manager.beginTransaction()
+                .add(id, currentFragement)
+                .commit();
+    }
+
+    private void switchFragment(Fragment targetFragment) {
+        if (targetFragment == currentFragement) {
+            return;
+        }
+        FragmentTransaction fragmentTransaction = manager.beginTransaction()
+                .hide(currentFragement);
+        if (targetFragment.isAdded()) {
+            fragmentTransaction
+                    .show(targetFragment)
+                    .commit();
+        } else {
+            fragmentTransaction
+                    .add(id, targetFragment)
+                    .commit();
+        }
+        currentFragement = targetFragment;
+    }
+
+    private void initListenner() {
         for (final BottomChild bottomChild : bottomChildren) {
             changeUi(bottomChild);
-            bottomChild.relativeLayout.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    for (BottomChild child : bottomChildren) {
-                        if (child != bottomChild) {
-                            child.isSelected = false;
-                        } else {
-                            child.isSelected = true;
+            bottomChild.getView()
+                    .setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            for (BottomChild child : bottomChildren) {
+                                if (child != bottomChild) {
+                                    child.setSelected(false);
+                                } else {
+                                    child.setSelected(true);
+                                }
+                                if (child.isSelected()) {
+                                    switchFragment(child.getFragment());
+                                    onClickBottomChildListener.onClick(child, bottomChildren.indexOf(child));
+                                }
+                                changeUi(child);
+                            }
                         }
-                        if (child.isSelected) {
-                            onClickBottomChildListener.onClick(child, bottomChildren.indexOf(child));
-                        }
-                        changeUi(child);
-                    }
-                }
-            });
+                    });
         }
     }
 }

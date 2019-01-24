@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#1DA7ED</color>
     <color name="white">#FFFFFF</color>
-    <color name="gray">#858585</color>
+    <color name="gray">#858585</color>EDEDED
     <color name="myBlue">#1DA7ED</color>
+    <color name="lightGray">#E3E3E3</color>
 </resources>
