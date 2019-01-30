@@ -1,1 +1,1 @@
-include ':app', ':mybottomnavigation'
+include ':app', ':my_bottom_navigation'

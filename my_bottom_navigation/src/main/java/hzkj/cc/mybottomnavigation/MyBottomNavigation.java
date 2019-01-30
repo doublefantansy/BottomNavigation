@@ -30,6 +30,7 @@ public class MyBottomNavigation extends LinearLayout {
 
     public void setOnClickBottomChildListener(OnClickBottomChildListener onClickBottomChildListener) {
         this.onClickBottomChildListener = onClickBottomChildListener;
+        initListenner();
     }
 
     public MyBottomNavigation(Context context) {
@@ -53,7 +54,7 @@ public class MyBottomNavigation extends LinearLayout {
         initView();
         initListenner();
     }
-    
+
     public void changeUi(BottomChild bottomChild) {
         bottomChild.getTextView()
                 .setTextColor(bottomChild.isSelected() ? selectedTextColor : unSelectedtextColor);
@@ -139,7 +140,9 @@ public class MyBottomNavigation extends LinearLayout {
                                 }
                                 if (child.isSelected()) {
                                     switchFragment(child.getFragment());
-                                    onClickBottomChildListener.onClick(child, bottomChildren.indexOf(child));
+                                    if (onClickBottomChildListener != null) {
+                                        onClickBottomChildListener.onClick(child, bottomChildren.indexOf(child));
+                                    }
                                 }
                                 changeUi(child);
                             }

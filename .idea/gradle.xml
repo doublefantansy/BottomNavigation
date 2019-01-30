@@ -9,7 +9,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/mybottomnavigation" />
+            <option value="$PROJECT_DIR$/my_bottom_navigation" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
