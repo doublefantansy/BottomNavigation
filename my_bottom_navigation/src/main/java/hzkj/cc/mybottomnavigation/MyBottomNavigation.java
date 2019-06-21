@@ -102,9 +102,20 @@ public class MyBottomNavigation extends LinearLayout {
     private void initFragment() {
         currentFragement = bottomChildren.get(defalutIndex)
                 .getFragment();
-        manager.beginTransaction()
-                .add(id, currentFragement)
-                .commit();
+        for (BottomChild bottomChild : bottomChildren) {
+            manager.beginTransaction()
+                    .add(id, bottomChild.getFragment())
+                    .commit();
+            if (bottomChild.getFragment() == currentFragement) {
+                manager.beginTransaction()
+                        .show(bottomChild.getFragment())
+                        .commit();
+            } else {
+                manager.beginTransaction()
+                        .hide(bottomChild.getFragment())
+                        .commit();
+            }
+        }
     }
 
     private void switchFragment(Fragment targetFragment) {
@@ -113,15 +124,8 @@ public class MyBottomNavigation extends LinearLayout {
         }
         FragmentTransaction fragmentTransaction = manager.beginTransaction()
                 .hide(currentFragement);
-        if (targetFragment.isAdded()) {
-            fragmentTransaction
-                    .show(targetFragment)
-                    .commit();
-        } else {
-            fragmentTransaction
-                    .add(id, targetFragment)
-                    .commit();
-        }
+        fragmentTransaction.show(targetFragment);
+        fragmentTransaction.commit();
         currentFragement = targetFragment;
     }
 
