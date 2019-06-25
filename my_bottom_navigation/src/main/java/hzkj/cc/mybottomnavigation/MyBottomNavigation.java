@@ -27,6 +27,7 @@ public class MyBottomNavigation extends LinearLayout {
     FragmentManager manager;
     int defalutIndex;
     Fragment currentFragement;
+    int currentIndex;
     OnClickBottomChildListener onClickBottomChildListener;
     List<Integer> colors = new ArrayList<>();
     private int id = new Random().nextInt(717);
@@ -52,6 +53,7 @@ public class MyBottomNavigation extends LinearLayout {
         this.manager = manager;
         this.bottomChildren = bottomChildren;
         this.defalutIndex = defalutIndex;
+        currentIndex = defalutIndex;
         bottomChildren.get(this.defalutIndex)
                 .setSelected(true);
         initView();
@@ -142,6 +144,10 @@ public class MyBottomNavigation extends LinearLayout {
         currentFragement = targetFragment;
     }
 
+    public int getCurrentIndex() {
+        return currentIndex;
+    }
+
     private void initListenner() {
         for (final BottomChild bottomChild : bottomChildren) {
             changeUi(bottomChild);
@@ -156,6 +162,7 @@ public class MyBottomNavigation extends LinearLayout {
                                     child.setSelected(true);
                                 }
                                 if (child.isSelected()) {
+                                    currentIndex = bottomChildren.indexOf(child);
                                     switchFragment(child.getFragment());
                                     if (onClickBottomChildListener != null) {
                                         onClickBottomChildListener.onClick(child, bottomChildren.indexOf(child));

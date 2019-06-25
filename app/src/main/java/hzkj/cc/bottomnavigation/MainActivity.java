@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        MyBottomNavigation bottomNavigation = findViewById(R.id.a);
+        final MyBottomNavigation bottomNavigation = findViewById(R.id.a);
         List<BottomChild> bottomChildren = new ArrayList<>();
         bottomChildren.add(new BottomChild("考勤", new Fragment1(), getResources().getDrawable(R.drawable.ic_bianji), getResources().getDrawable(R.drawable.ic_bianji_2)));
         bottomChildren.add(new BottomChild("工单", new Fragment2(), getResources().getDrawable(R.drawable.ic_bianji), getResources().getDrawable(R.drawable.ic_bianji_2)));
@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigation.setOnClickBottomChildListener(new OnClickBottomChildListener() {
             @Override
             public void onClick(BottomChild bottomChild, int position) {
-                Toast.makeText(MainActivity.this, position + "", Toast.LENGTH_SHORT)
+                Toast.makeText(MainActivity.this, bottomNavigation.getCurrentIndex() + "", Toast.LENGTH_SHORT)
                         .show();
             }
         });
