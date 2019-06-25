@@ -2,6 +2,7 @@ package hzkj.cc.mybottomnavigation;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -26,6 +28,7 @@ public class MyBottomNavigation extends LinearLayout {
     int defalutIndex;
     Fragment currentFragement;
     OnClickBottomChildListener onClickBottomChildListener;
+    List<Integer> colors = new ArrayList<>();
     private int id = new Random().nextInt(717);
 
     public void setOnClickBottomChildListener(OnClickBottomChildListener onClickBottomChildListener) {
@@ -55,9 +58,19 @@ public class MyBottomNavigation extends LinearLayout {
         initListenner();
     }
 
+    public void setTextColors(List<Integer> colors) {
+        this.colors.addAll(colors);
+    }
+
     public void changeUi(BottomChild bottomChild) {
+        Integer color;
+        if (colors.size() == 0) {
+            color = selectedTextColor;
+        } else {
+            color = colors.get(bottomChildren.indexOf(bottomChild));
+        }
         bottomChild.getTextView()
-                .setTextColor(bottomChild.isSelected() ? selectedTextColor : unSelectedtextColor);
+                .setTextColor(bottomChild.isSelected() ? color : unSelectedtextColor);
         bottomChild.getTextView()
                 .setTextSize(bottomChild.isSelected() ? 15 : 12);
         ((RelativeLayout.LayoutParams) bottomChild.getImageView()
