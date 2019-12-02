@@ -100,12 +100,12 @@ public class MyBottomNavigation extends LinearLayout {
     initFragment();
     LinearLayout bottomLayout = new LinearLayout(getContext());
     LinearLayout.LayoutParams bottomParams = new LinearLayout.LayoutParams(
-        ViewGroup.LayoutParams.MATCH_PARENT, Util.dipTopx(getContext(), 55));
+        ViewGroup.LayoutParams.MATCH_PARENT, Util.dipTopx(getContext(), 60));
     bottomLayout.setLayoutParams(bottomParams);
     this.addView(bottomLayout);
     for (BottomChild bottomChild : bottomChildren) {
       View view = LayoutInflater.from(getContext())
-          .inflate(R.layout.bottomnavigation, null);
+          .inflate(R.layout.bottomnavigation, bottomLayout,false);
       TextView textView = view.findViewById(R.id.text);
       ImageView imageView = view.findViewById(R.id.image);
       textView.setText(bottomChild.getName());

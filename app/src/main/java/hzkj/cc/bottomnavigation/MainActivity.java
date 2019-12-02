@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         final MyBottomNavigation bottomNavigation = findViewById(R.id.a);
         List<BottomChild> bottomChildren = new ArrayList<>();
-        bottomChildren.add(new BottomChild("考勤", new Fragment1(), getResources().getDrawable(R.drawable.ic_bianji), getResources().getDrawable(R.drawable.ic_bianji_2)));
+        bottomChildren.add(new BottomChild("考勤", new Fragment1(), getResources().getDrawable(R.drawable.b), getResources().getDrawable(R.drawable.a)));
         bottomChildren.add(new BottomChild("工单", new Fragment2(), getResources().getDrawable(R.drawable.ic_bianji), getResources().getDrawable(R.drawable.ic_bianji_2)));
         bottomChildren.add(new BottomChild("租车", new Fragment3(), getResources().getDrawable(R.drawable.ic_bianji), getResources().getDrawable(R.drawable.ic_bianji_2)));
 //        bottomChildren.add(new BottomChild("合同", new Fragment4(), getResources().getDrawable(R.drawable.ic_bianji), getResources().getDrawable(R.drawable.ic_bianji_2)));
