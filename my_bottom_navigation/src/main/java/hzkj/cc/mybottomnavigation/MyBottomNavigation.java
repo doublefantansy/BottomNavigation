@@ -153,12 +153,11 @@ public class MyBottomNavigation extends LinearLayout {
         if (targetFragment == currentFragement) {
             return;
         }
-        FragmentTransaction fragmentTransaction = manager.beginTransaction();
-        fragmentTransaction.hide(currentFragement).commit();
+        manager.beginTransaction().hide(currentFragement).commit();
 //        if (!targetFragment.isAdded()) {
 //            fragmentTransaction.add(id, targetFragment);
 //        }
-        fragmentTransaction.show(targetFragment).commit();
+        manager.beginTransaction().show(targetFragment).commit();
         currentFragement = targetFragment;
     }
 
