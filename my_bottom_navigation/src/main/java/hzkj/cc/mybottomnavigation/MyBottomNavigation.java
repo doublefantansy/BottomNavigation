@@ -153,8 +153,8 @@ public class MyBottomNavigation extends LinearLayout {
         if (targetFragment == currentFragement) {
             return;
         }
-        FragmentTransaction fragmentTransaction = manager.beginTransaction()
-                .hide(currentFragement);
+        FragmentTransaction fragmentTransaction = manager.beginTransaction();
+        fragmentTransaction.hide(currentFragement);
 //        if (!targetFragment.isAdded()) {
 //            fragmentTransaction.add(id, targetFragment);
 //        }

@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="22dp"
+
+    android:layout_height="wrap_content"
     android:background="@drawable/ripper"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_alignParentTop="true"
-        android:background="@color/bottomNavigation_lightGray" />
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="12dp"-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        android:background="@color/bottomNavigation_myBlue" />-->
 
     <ImageView
         android:id="@+id/image"
