@@ -14,4 +14,13 @@ public class Fragment5 extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment5, container, false);
     }
+    @Override public void onHiddenChanged(boolean hidden) {
+
+        if (!hidden) {
+            System.out.println("show");
+
+        } else {
+            System.out.println("hidden");
+        }
+    }
 }

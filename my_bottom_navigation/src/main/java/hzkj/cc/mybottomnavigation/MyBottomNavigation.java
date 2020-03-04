@@ -137,14 +137,14 @@ public class MyBottomNavigation extends LinearLayout {
         for (final BottomChild bottomChild : bottomChildren) {
             manager.beginTransaction()
                     .add(id, bottomChild.getFragment()).commit();
-            if (bottomChildren.indexOf(bottomChild) == currentIndex) {
-                manager.beginTransaction().show(bottomChild.getFragment())
-                        .commit();
-            } else {
+
+
                 manager.beginTransaction().hide(bottomChild.getFragment())
                         .commit();
-            }
+            
         }
+      manager.beginTransaction().show(currentFragement)
+          .commit();
 
 //    }
     }
@@ -157,7 +157,7 @@ public class MyBottomNavigation extends LinearLayout {
 //        if (!targetFragment.isAdded()) {
 //            fragmentTransaction.add(id, targetFragment);
 //        }
-        manager.beginTransaction().show(targetFragment).commit();
+      manager.beginTransaction().show(targetFragment).commit();
         currentFragement = targetFragment;
     }
 
